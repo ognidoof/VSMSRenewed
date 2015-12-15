@@ -8,9 +8,9 @@ public class Supplier {
     private String password;
     private String supplier_name;
     private String supplier_description;
-    private ArrayList<String> supplier_type;
+    private String supplier_type;
 
-    public Supplier(int supplier_id, String password, String supplier_name, String supplier_description, ArrayList<String> supplier_type) {
+    public Supplier(int supplier_id, String password, String supplier_name, String supplier_description, String supplier_type) {
         this.supplier_id = supplier_id;
         this.password = password;
         this.supplier_name = supplier_name;
@@ -34,7 +34,7 @@ public class Supplier {
         return supplier_description;
     }
 
-    public ArrayList<String> getSupplier_type() {
+    public String getSupplier_type() {
         return supplier_type;
     }
 
@@ -54,8 +54,10 @@ public class Supplier {
         this.supplier_description = supplier_description;
     }
 
-    public void setSupplier_type(ArrayList<String> supplier_type) {
+    public void setSupplier_type(String supplier_type) {
         this.supplier_type = supplier_type;
     }
-    
+    public String toString() {
+        return "Supplier ID: " + supplier_id + ", name: " + supplier_name + ", password: " + password + ", type: " + supplier_type + " description " + supplier_description;
+    }
 }

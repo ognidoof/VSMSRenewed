@@ -1,11 +1,11 @@
 
 package Model;
 
-public class FavoriteSupplier {
+public class FavouriteSupplier {
     private int supplier_id;
     private int vendor_id;
 
-    public FavoriteSupplier(int supplier_id, int vendor_id) {
+    public FavouriteSupplier(int vendor_id, int supplier_id) {
         this.supplier_id = supplier_id;
         this.vendor_id = vendor_id;
     }
@@ -25,6 +25,8 @@ public class FavoriteSupplier {
     public void setVendor_id(int vendor_id) {
         this.vendor_id = vendor_id;
     }
-    
+    public String toString() {
+        return "Vendor ID: " + vendor_id +", supplier_id: "+supplier_id;
+    }
     
 }
