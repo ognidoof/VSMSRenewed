@@ -5,10 +5,6 @@
 .hide {
     display: none; }
 
-.chat-container {
-    width: 500px;
-    margin: 40px auto 0px auto; }
-
 .l-popout {
     margin: 0;
     padding: 0;
@@ -22,6 +18,7 @@
     border: 0; }
 
 .chat {
+    display:flex;
     font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     border-radius: 3px;
     -webkit-box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
@@ -29,7 +26,6 @@
     background-color: #dfe3ea;
     border: 1px solid #CCC;
     overflow: auto;
-    padding: 0px;
     font-size: 18px;
     line-height: 22px;
     color: #666; }

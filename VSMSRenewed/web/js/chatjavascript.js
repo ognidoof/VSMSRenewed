@@ -38,22 +38,16 @@ function initializeVendorChat($sender, $receiver) {
         var key = data.key;
         var ordercondition = data.ordercondition;
         var orderid = data.orderid;
-        //CREATE ELEMENTS MESSAGE & SANITIZE TEXT
-        //var messageElement = $("<li>");
-        //messageElement.text(message).prepend(senderElement);      
-        //var receiverElement = $("<i class='chat-name'></i>");
-
         var senderElement = $("<strong class='chat-name'></strong>");
         senderElement.text(sender);
         //ADD MESSAGE only if sender and receiver are relevant
         if (sender === $sender && receiver === $receiver || sender === $receiver && receiver === $sender) {
-            messageList.append(senderElement)
-            messageList.append(message)
-            messageList.append("<li>")
+            
+            messageList.append("<li>"+senderElement+message+"</li>")
             if (key != null) {
                 messageList.append("Order key: " + key)
             }
-            messageList.append("<li>")
+            
         }
 
         //SCROLL TO BOTTOM OF MESSAGE LIST
@@ -150,13 +144,11 @@ function initializeSupplierChat($sender, $receiver) {
         senderElement.text(sender);
         //ADD MESSAGE only if sender and receiver are relevant
         if (sender === $sender && receiver === $receiver|| sender === $receiver && receiver === $sender) {
-            messageList.append(senderElement)
-            messageList.append(message)
-            messageList.append("<li>")
-            if (key != null) {
-                messageList.append("Order key: " + key)
-            }
-            messageList.append("<li>")
+             messageList.append("<li>"+senderElement+message+"</li>")
+//            if (key != null) {
+//                messageList.append("Order key: " + key)
+//            }
+//            messageList.append("<li>")
         }
 
         //SCROLL TO BOTTOM OF MESSAGE LIST

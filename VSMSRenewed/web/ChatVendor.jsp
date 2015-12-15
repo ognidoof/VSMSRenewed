@@ -14,20 +14,21 @@
 
         <!--for general CSS please refer to the main css. For others, please just append the link line below-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/chatstylesheet.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/chatstylesheet.css">-->
+        <link rel="stylesheet" type="text/css" href="css/chatlayout.css"
     </head>
     <body>
         <!-- CHAT MARKUP -->
-        <div class="chat chat-container col-md-12" style="margin-top:100px">
-            <header>Vendor Chat (https://vsms.firebaseio.com/)</header>
+        <div class="chat">
+            <header class="chat-header">Vendor Chat (https://vsms.firebaseio.com/)</header>
 
             <div class='chat-toolbar'>
-                Sending to: FreshFoodz
+                Sending to: <h3>FreshFoodz</h3>
             </div>
 
             <ul id='messages' class="chat-messages"></ul>
 
-            <footer>
+            <footer class="chat-footer">
                 <input type='text' id='messageInput'  placeholder='Type a message...'>
             </footer>
         </div>

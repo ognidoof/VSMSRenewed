@@ -15,15 +15,16 @@
 
         <!--for general CSS please refer to the main css. For others, please just append the link line below-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/chatstylesheet.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/chatstylesheet.css">-->
+        <link rel="stylesheet" type="text/css" href="css/chatlayout.css">
     </head>
     <body>
 
         <!-- CHAT MARKUP -->
 
         <H1>Welcome FreshFoodz</h1>
-        <div class="chat chat-container">
-            <header>Supplier Chat (https://vsms.firebaseio.com/)</header>
+        <div class="chat">
+            <header class="chat-header">Supplier Chat (https://vsms.firebaseio.com/)</header>
 
             <div class='chat-toolbar'>
                 Sending to: <h3>Christina</h3>
