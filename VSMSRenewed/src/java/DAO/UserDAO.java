@@ -42,6 +42,11 @@ public class UserDAO {
         
         //signUpVendor
 //        signUpVendor(new Vendor(2, "password", "Spiffy Dapper", "We sell the best quality coffee", "vincentt.2013@sis.smu.edu.sg", 65, 87221272, "Arab Street #03-02"));
+    
+        //saveAsFavouriteSupplier
+//        saveAsFavouriteSupplier(2,1);
+        //deleteFavouriteSupplier
+//        deleteFavouriteSupplier(2,1);
     }
     private static void handleSQLException(SQLException e, String sql, String... parameters) {
         String msg = "Unable to access data. SQL : " + sql + "\n";
@@ -351,24 +356,19 @@ public class UserDAO {
 
     }
 
-    //Not done yet//
-    public static void saveAsFavouriteSupplier(String supplierId, String vendorId) {
+    public static void saveAsFavouriteSupplier(int vendor_id, int supplier_id) {
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
         String query = "";
-
-        String vendor_id = vendorId;
-        String supplier_id = supplierId;
-        //get supplier ID? or retrieve from arraylist?
 
         try {
             conn = ConnectionManager.getConnection();
             query = "INSERT INTO favourite_supplier " + "(vendor_id,supplier_id) VALUES(?,?)";
             //where vendor_id=?
             statement = conn.prepareStatement(query);
-            statement.setString(1, vendor_id);
-            statement.setString(2, supplier_id);
+            statement.setInt(1, vendor_id);
+            statement.setInt(2, supplier_id);
             statement.executeUpdate();
 
         } catch (Exception e) {
@@ -391,23 +391,20 @@ public class UserDAO {
         }
     }
 
-    public static void deleteFavouriteSupplier(String supplierId, String vendorId) {
+    public static void deleteFavouriteSupplier(int vendor_id, int supplier_id) {
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
         String query = "";
 
-        String vendor_id = vendorId;
-        String supplier_id = supplierId;
-        //get supplier ID? or retrieve from arraylist?
-
+        
         try {
             conn = ConnectionManager.getConnection();
             query = "Delete from favourite_supplier where vendor_id=? and supplier_id=?";
             //where vendor_id=?
             statement = conn.prepareStatement(query);
-            statement.setString(1, vendor_id);
-            statement.setString(2, supplier_id);
+            statement.setInt(1, vendor_id);
+            statement.setInt(2, supplier_id);
             statement.executeUpdate();
 
         } catch (Exception e) {
