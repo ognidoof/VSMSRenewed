@@ -9,14 +9,55 @@ public class Supplier {
     private String supplier_name;
     private String supplier_description;
     private String supplier_type;
+    private String email;
+    private int area_code;
+    private int telephone_number;
+    private String address;
 
-    public Supplier(int supplier_id, String password, String supplier_name, String supplier_description, String supplier_type) {
+    public Supplier(int supplier_id, String password, String supplier_name, String supplier_description, String supplier_type, String email, int area_code, int telephone_number, String address) {
         this.supplier_id = supplier_id;
         this.password = password;
         this.supplier_name = supplier_name;
         this.supplier_description = supplier_description;
         this.supplier_type = supplier_type;
+        this.email = email;
+        this.area_code = area_code;
+        this.telephone_number = telephone_number;
+        this.address = address;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getArea_code() {
+        return area_code;
+    }
+
+    public int getTelephone_number() {
+        return telephone_number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setArea_code(int area_code) {
+        this.area_code = area_code;
+    }
+
+    public void setTelephone_number(int telephone_number) {
+        this.telephone_number = telephone_number;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 
     public int getSupplier_id() {
         return supplier_id;
@@ -58,6 +99,6 @@ public class Supplier {
         this.supplier_type = supplier_type;
     }
     public String toString() {
-        return "Supplier ID: " + supplier_id + ", name: " + supplier_name + ", password: " + password + ", type: " + supplier_type + " description " + supplier_description;
+        return "Supplier ID: " + supplier_id + ", name: " + supplier_name + ", password: " + password + ", type: " + supplier_type + " description " + supplier_description+", email: "+email+" telephone_number "+area_code+telephone_number +" address "+address;
     }
 }
