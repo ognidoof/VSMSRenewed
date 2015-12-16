@@ -37,6 +37,11 @@ public class UserDAO {
         System.out.println(loginSupplier("FreshFruitz",""));
         System.out.println(loginVendor("Bob's Bakery And Bistro",""));
         
+        //signUpSupplier
+//        signUpSupplier(new Supplier(9,"password123","FreshIngredientz","Fresh Ingredientz only","chinese","vincentt.2013@sis.smu.edu.sg",65,87221272,"Punggol Street 20 #03-02"));
+        
+        //signUpVendor
+//        signUpVendor(new Vendor(2, "password", "Spiffy Dapper", "We sell the best quality coffee", "vincentt.2013@sis.smu.edu.sg", 65, 87221272, "Arab Street #03-02"));
     }
     private static void handleSQLException(SQLException e, String sql, String... parameters) {
         String msg = "Unable to access data. SQL : " + sql + "\n";
@@ -123,6 +128,47 @@ public class UserDAO {
         return supplier;
     }
 
+    public static void signUpSupplier(Supplier supplier){
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        String query = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            query = "INSERT INTO supplier VALUES (?,?,?,?,?,?,?,?,?)";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, supplier.getSupplier_id());
+            statement.setString(2, supplier.getSupplier_name());
+            statement.setString(3,supplier.getSupplier_description());
+            statement.setString(4, supplier.getSupplier_type());
+            statement.setString(5, supplier.getPassword());
+            statement.setString(6,supplier.getEmail());
+            statement.setInt(7, supplier.getArea_code());
+            statement.setInt(8, supplier.getTelephone_number());
+            statement.setString(9, supplier.getAddress());
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     //VENDOR SQL
     public static ArrayList<Vendor> retrieveVendorList() {
         Connection conn = null;
@@ -196,6 +242,46 @@ public class UserDAO {
         return vendor;
     }
 
+    public static void signUpVendor(Vendor vendor){
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        String query = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            query = "INSERT INTO vendor VALUES (?,?,?,?,?,?,?,?)";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, vendor.getVendor_id());
+            statement.setString(2, vendor.getVendor_name());
+            statement.setString(3,vendor.getVendor_description());
+            statement.setString(4, vendor.getPassword());
+            statement.setString(5, vendor.getEmail());
+            statement.setInt(6,vendor.getArea_code());
+            statement.setInt(7, vendor.getTelephone_number());
+            statement.setString(8, vendor.getAddress());
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     //FAVOURITE SUPPPLIER SQL
     public static ArrayList<FavouriteSupplier> retrieveFavouriteSupplierList() {
         Connection conn = null;
