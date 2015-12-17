@@ -32,7 +32,7 @@ public class OrderDAO {
                 .getName()).log(Level.SEVERE, msg, e);
         throw new RuntimeException(msg, e);
     }
-    /*
+    
     public static ArrayList<Order> retrieveOrderList() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -50,9 +50,9 @@ public class OrderDAO {
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 int vendor_id = rs.getInt("vendor_id");
-                double password = rs.getDouble("total_final_price");
+                double total_final_price = rs.getDouble("total_final_price");
 
-                Order order = ;
+                Order order = new Order(order_id, vendor_id ,total_final_price);
                 orderList.add(order);
             }
         } catch (SQLException e) {
@@ -62,5 +62,5 @@ public class OrderDAO {
         }
         return orderList;
     }
-    */
+    
 }
