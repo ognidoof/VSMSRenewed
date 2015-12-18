@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  * Use Pushbullet JAVA API in Gradle as your possible ways.
-   Learn first Team Treehouse Dependency management and Local Development Environment
+   Learn first Team Treehouse Dependency management and Local Development Environment 
  */
 
 /**
