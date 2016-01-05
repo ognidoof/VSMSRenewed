@@ -3,17 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/src/java/Model/Supplier.java</file>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/ChatVendor.jsp</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/js/sendorder.js</file>
             <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/js/main.js</file>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/css/main.css</file>
             <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/index.html</file>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/src/java/Model/Vendor.java</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/css/main.css</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/test/controllerplus/EmailDemo.java</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/ChatList.jsp</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/node_modules/requirejs/require.js</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/ChatSupplier.jsp</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/node_modules/mime/mime.js</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/ChatVendor.jsp</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/js/pushbullet.js</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/test/EmailTest.java</file>
             <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/js/chatjavascript.js</file>
             <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/css/chatstylesheet.css</file>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/src/java/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/src/java/Model/FavouriteSupplier.java</file>
-            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/src/java/Controller/ConnectionManager.java</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/node_modules/pushbullet/index.js</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/pushbullet.jsp</file>
+            <file>file:/C:/Users/vincentt.2013/Documents/NetBeansProjects/VSMSRenewed/VSMSRenewed/VSMSRenewed/web/node_modules/pushbullet/lib/stream.js</file>
         </group>
     </open-files>
 </project-private>
