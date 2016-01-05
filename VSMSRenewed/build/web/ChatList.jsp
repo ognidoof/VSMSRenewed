@@ -1,6 +1,5 @@
-
 <html>
-     <head>
+    <head>
         <!--CSS-->
         <!-- Import CDN for semantic UI -->    
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
@@ -15,33 +14,26 @@
 
         <!--for general CSS please refer to the main css. For others, please just append the link line below-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <!--<link rel="stylesheet" type="text/css" href="css/chatstylesheet.css">-->
-        <link rel="stylesheet" type="text/css" href="css/chatlayout.css">
+        <link rel="stylesheet" type="text/css" href="css/chatstylesheet.css">
+
     </head>
+
     <body>
+        <form action="ChatVendor.jsp" method="GET" id="chat">
+            <input type="hidden" value="FreshFoodz" name="hiddenvalue" id="hiddenvalue"/>
 
-        <!-- CHAT MARKUP -->
+            <ul class ="list-group">
+                <li class ="list-group-item"><h1>Contact Lists</h1></li>
+                <li class ="list-group-item" name= "FreshFoodz" onclick="submitFunction('FreshFoodz')"><h3>FreshFoodz</h3></li>
+                <li class ="list-group-item" name= "FreshFruitz" onclick="submitFunction('FreshFruitz')"><h3>FreshFruitz</h3></li>
+                <li class ="list-group-item" name= "Only A Matter Of Thyme" onclick="submitFunction('Only A Matter Of Thyme')"><h3>Only A Matter Of Thyme</h3></li>
+            </ul>
+        </form>
 
-        <H1>Welcome FreshFoodz</h1>
-        <div class="chat">
-            <header class="chat-header">Supplier Chat (https://vsms.firebaseio.com/)</header>
-
-            <div class='chat-toolbar'>
-                Sending to: <h3>Christina</h3>
-            </div>
-
-            <ul id='messages' class="chat-messages"></ul>
-
-            <footer>
-                <input type='text' id='messageInput'  placeholder='Type a message...'>
-            </footer>
-        </div>
-
-        <!--CHAT JAVASCRIPT-->
+        <!--JAVASCRIPT-->
         <!--for general Javascript please refer to the main js. For others, please just append the script line below-->
         <script src="js/chatjavascript.js"></script>
-        <script>
-            initializeSupplierChat("FreshFoodz", "Christina");
-        </script>
+
+
     </body>
 </html>
