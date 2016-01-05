@@ -73,15 +73,16 @@ public class IngredientDAO {
         return ingredient;
     }
     
-    public void addIngredient(Ingredient ingredient){
+    public int addIngredient(Ingredient ingredient){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
         String query = "";
+        int row=0;
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "insert into Ingredient (supplier_id, ingredient_name, supplyunit, subcategory, ingredient_description, offeredprice) values (?,?,?,?,?,?)";
+            query = "insert into ingredient (supplier_id, ingredient_name, supply_unit, category, ingredient_description, offered_price) values (?,?,?,?,?,?)";
             statement = conn.prepareStatement(query);
             statement.setString(1, ingredient.getSupplier_id()+"");
             statement.setString(2, ingredient.getName());
@@ -89,8 +90,7 @@ public class IngredientDAO {
             statement.setString(4, ingredient.getSubcategory());
             statement.setString(5, ingredient.getDescription());
             statement.setString(6, ingredient.getOfferedPrice());
-            int row = statement.executeUpdate();
-            
+            row = statement.executeUpdate();
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -120,6 +120,8 @@ public class IngredientDAO {
                 }                
             }
         }
+                    return row;
+
     }
     
     public void deleteIngredient(Ingredient ingredient){
@@ -174,16 +176,14 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "update Ingredient set supplier_id=?, ingredient_name=?, supplyunit=?, subcategory=?, ingredient_description=?, offeredprice=? where supplier_id=? & ingredient_name=?";
+            query = "update Ingredient set supply_unit=?, category=?, ingredient_description=?, offered_price=? where supplier_id=? & ingredient_name=?";
             statement = conn.prepareStatement(query);
-            statement.setString(1, ingredient.getSupplier_id()+"");
-            statement.setString(2, ingredient.getName());
-            statement.setString(3, ingredient.getSupplyUnit());
-            statement.setString(4, ingredient.getSubcategory());
-            statement.setString(5, ingredient.getDescription());
-            statement.setString(6, ingredient.getOfferedPrice());
-            statement.setString(7, ingredient.getSupplier_id()+"");
-            statement.setString(8, ingredient.getName());
+            statement.setString(1, ingredient.getSupplyUnit());
+            statement.setString(2, ingredient.getSubcategory());
+            statement.setString(3, ingredient.getDescription());
+            statement.setString(4, ingredient.getOfferedPrice());
+            statement.setString(5, ingredient.getSupplier_id()+"");
+            statement.setString(6, ingredient.getName());
             int row = statement.executeUpdate();
             
         }catch(Exception e)
