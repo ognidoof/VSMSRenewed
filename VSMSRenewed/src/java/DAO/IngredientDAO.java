@@ -31,14 +31,14 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "select * from Ingredient where supplier_id=? AND ingredient_name=?";
+            query = "select * from ingredient where supplier_id=? AND ingredient_name=?";
             statement = conn.prepareStatement(query);
             statement.setString(1,supplierId);
             statement.setString(2,ingredientName);
             rs = statement.executeQuery();
             while(rs.next()){
                 int supId=Integer.parseInt(rs.getString("supplier_id"));
-                ingredient=new Ingredient(supId, rs.getString("ingredient_name"), rs.getString("supplyunit"), rs.getString("subcategory"), rs.getString("ingredient_description"), rs.getString("offeredprice"));                
+                ingredient=new Ingredient(supId, rs.getString("ingredient_name"), rs.getString("supply_unit"), rs.getString("category"), rs.getString("ingredient_description"), rs.getString("offered_price"));                
             }
             
         }catch(Exception e)
