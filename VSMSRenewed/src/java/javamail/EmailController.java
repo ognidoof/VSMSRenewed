@@ -5,6 +5,14 @@
  */
 package javamail;
 
+import DAO.UserDAO;
+import Model.Order;
+import Model.Orderline;
+import Model.Supplier;
+import Model.Vendor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,9 +29,9 @@ import javax.mail.internet.MimeMessage;
  */
 public class EmailController {
 
-    private String host;
-    private String user;
-    private String password;
+    private static String host;
+    private static String user;
+    private static String password;
 
     public EmailController(String host, String user, String password){
         this.host= host;
@@ -31,7 +39,7 @@ public class EmailController {
         this.password =password;
     }
     
-    public void sendMessage(String toEmail,String subject, String messageString) {
+    public static void sendMessage(String toEmail,String subject, String messageString) {
 
 
         //Sending to Google SMTP Port
@@ -73,9 +81,47 @@ public class EmailController {
             e.printStackTrace();
         }
     }
-
+    
     //TODO: Convert the orders into message string for each supplier
+    public static HashMap<Supplier,String> supplierMessageList (Order order){
+        HashMap<Supplier,String> suppOrderMap = new HashMap<Supplier, String>();
+       
+        for(Orderline orderline : order.getOrderlines()){
+            int supplier_id = orderline.getSupplier_id();
+            Supplier supplier = UserDAO.getSupplierById(supplier_id);
+            if (suppOrderMap.containsKey(supplier)){
+                String orderlineText = suppOrderMap.get(supplier);
+                orderlineText += orderline.toString();
+            } else{
+                suppOrderMap.put(supplier, orderline.toString());
+            }
+        }
+        return suppOrderMap;
+    }
+    
+    //TODO: convert the orders into message string for vendor
+    public static void sendMessageToVendor(Vendor vendor,HashMap<Supplier,String> suppOrderMap){
+        Iterator iter = suppOrderMap.keySet().iterator();
+        String messageText = "";
+        while(iter.hasNext()){
+            Supplier supplier = (Supplier)iter.next();
+            messageText += supplier.getSupplier_name()+"\n";
+            messageText += supplier.getEmail()+"\n";
+            messageText += supplier.getTelephone_number()+"\n";
+            messageText += suppOrderMap.get(supplier);
+            messageText += "\n\n";
+        }
+        
+        sendMessage(vendor.getEmail(),"Your orders to suppliers", messageText);
+    }
     
     //TODO: send orderlist to multiple suppliers --> Make sure you have the domain ready
-    
+    public static void sendMessageToSuppliers (HashMap<Supplier,String> suppOrderMap){
+        Iterator iter = suppOrderMap.keySet().iterator();
+        while(iter.hasNext()){
+            Supplier supplier = (Supplier)iter.next();
+            String messageText = suppOrderMap.get(supplier);
+            sendMessage(supplier.getEmail(),"Order from Vendor", messageText);
+        }
+    }
 }

@@ -18,7 +18,13 @@ public class UserController {
     public static void signUpSupplier(Supplier supplier) {
         UserDAO.signUpSupplier(supplier);
     }
+    public static Supplier retrieveSupplierByID(int supplierID){
+        return UserDAO.getSupplierById(supplierID);
+    }
 
+    public static Vendor retrieveVendorByID(int vendorID){
+        return UserDAO.getVendorByID(vendorID);
+    }
     public static ArrayList<Vendor> retrieveVendorList() {
         return UserDAO.retrieveVendorList();
     }

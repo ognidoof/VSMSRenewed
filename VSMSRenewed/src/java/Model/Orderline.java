@@ -83,4 +83,8 @@ public class Orderline {
     public void setBufferpercentage(double bufferpercentage){
         this.bufferpercentage = bufferpercentage;
     }
+    
+    public String toString(){
+        return ingredient_name+" "+quantity+" "+finalprice +"\n";
+    }
 }

@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package javamail;
+
+import Model.Order;
+import Model.Supplier;
+import java.util.HashMap;
+
 /**
  *
  * @author vincentt.2013
@@ -23,5 +28,13 @@ public class Test {
         } else {
             System.out.println("User email and password are empty. Please correct the problem");
         }
+        
+        //create an order test system HAVENT TESTED(need a proper order and list)
+        Order order = new Order(23,2,32);
+        HashMap<Supplier,String> suppOrderMap = EmailController.supplierMessageList(order);
+        EmailController.sendMessageToSuppliers(suppOrderMap);
+        EmailController.sendMessageToVendor(null, suppOrderMap);
     }
+      
+    
 }
