@@ -31,7 +31,7 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "select * from Ingredient where supplier_id=? & ingredient_name=?";
+            query = "select * from Ingredient where supplier_id=? AND ingredient_name=?";
             statement = conn.prepareStatement(query);
             statement.setString(1,supplierId);
             statement.setString(2,ingredientName);
