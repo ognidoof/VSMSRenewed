@@ -132,7 +132,7 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "Delete from Ingredient where supplier_id=? & ingredient_name=?";
+            query = "Delete from ingredient where supplier_id=? AND ingredient_name=?";
             statement = conn.prepareStatement(query);
             statement.setString(1, ingredient.getSupplier_id()+"");
             statement.setString(2, ingredient.getName());
@@ -176,7 +176,7 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "update Ingredient set supply_unit=?, category=?, ingredient_description=?, offered_price=? where supplier_id=? & ingredient_name=?";
+            query = "update Ingredient set supply_unit=?, category=?, ingredient_description=?, offered_price=? where supplier_id=? AND ingredient_name=?";
             statement = conn.prepareStatement(query);
             statement.setString(1, ingredient.getSupplyUnit());
             statement.setString(2, ingredient.getSubcategory());
