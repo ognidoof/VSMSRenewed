@@ -77,19 +77,22 @@ public class OrderDAO {
             sql = sql.replace("#2", ""+order_id);
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-
+            ArrayList<Orderline> orderLineList = new ArrayList<Orderline>();
             //Retrieves the supplier info from database and create a new supplier object to return
             while (rs.next()) {
                 
 //                int vendor_id = rs.getInt("vendor_id");
 //                int order_id = rs.getInt("order_id");
                 int supplier_id = rs.getInt("supplier_id");
-                
-                double total_final_price = rs.getDouble("total_final_price");
+                String ingredient_name = rs.getString("ingredient_name");
+                double price = rs.getDouble("price");
+                int quantity = rs.getInt("quantity");
+                double buffer_percentage = rs.getDouble("buffer_percentage");
 
-                Order order = new Order(order_id, vendor_id ,total_final_price);
-                orderList.add(order);
+                Orderline orderline = new Orderline(vendor_id, order_id ,supplier_id, ingredient_name, price, quantity, buffer_percentage);
+                orderLineList.add(orderline);
             }
+            return orderLineList;
         } catch (SQLException e) {
             handleSQLException(e, sql);
         } finally {
