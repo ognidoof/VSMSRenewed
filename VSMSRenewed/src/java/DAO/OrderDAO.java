@@ -188,6 +188,16 @@ public class OrderDAO {
             stmt.executeUpdate();
             
             
+            ArrayList<Orderline> orderLineList = order.getOrderlines();
+            for (Orderline orderline : orderLineList) {
+                sql = "Delete from orderline where vendor_id=#1 AND order_id=#2";
+                sql = sql.replace("#1", "" + orderline.getVendor_id());
+                sql = sql.replace("#2", "" + orderline.getOrder_id());
+                stmt = conn.prepareStatement(sql);
+                stmt.executeUpdate();
+            }
+            
+            
         } catch (SQLException e) {
             handleSQLException(e, sql);
         } finally {
