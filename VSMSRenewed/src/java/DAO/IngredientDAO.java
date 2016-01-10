@@ -277,7 +277,7 @@ public class IngredientDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            query = "select * from IngredientQuantity where dish_id=? AND vendor_id=?";
+            query = "select * from Ingredient_Quantity where dish_id=? AND vendor_id=?";
             statement = conn.prepareStatement(query);
             statement.setString(1, dish_id);
             statement.setString(2, vendor_id);
@@ -375,7 +375,7 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query ="insert into IngredientQuantity (dish_id, ingredient_name, vendor_id, supplier_id, quantity, unit) values (?,?,?,?,?,?)";
+            query ="insert into ingredient_quantity (dish_id, ingredient_name, vendor_id, supplier_id, quantity, unit) values (?,?,?,?,?,?)";
             statement = conn.prepareStatement(query);
             statement.setString(1,dish_id);
             statement.setString(2,ingredient.getName());
@@ -481,7 +481,7 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "Delete from IngredientQuantity where dish_id=? AND ingredient_name=? AND vendor_id=? AND supplier_id=?";
+            query = "Delete from Ingredient_Quantity where dish_id=? AND ingredient_name=? AND vendor_id=? AND supplier_id=?";
             statement = conn.prepareStatement(query);
             statement.setString(1, dish_id);
             statement.setString(2, ingredient_name);
@@ -537,7 +537,7 @@ public class IngredientDAO {
             statement.setString(3, dish.getVendor_id()+"");
             statement.setString(4, dish.getDish_description());
             statement.setString(5, dish.getDish_id()+"");
-            statement.setString(3, dish.getVendor_id()+"");
+            statement.setString(6, dish.getVendor_id()+"");
             int row = statement.executeUpdate();
         }catch(Exception e)
         {
@@ -586,18 +586,14 @@ public class IngredientDAO {
         try
         {
             conn=ConnectionManager.getConnection();
-            query = "update IngredientQuantity set dish_id=?, ingredient_name=?, vendor_id=?, supplier_id=?, quantity=?, unit=? where dish_id=? AND ingredient_name=? AND vendor_id=? AND supplier_id=?";
+            query = "update Ingredient_Quantity set quantity=?, unit=? where dish_id=? AND ingredient_name=? AND vendor_id=? AND supplier_id=?";
             statement = conn.prepareStatement(query);
-            statement.setString(1, dish_id);
-            statement.setString(2, ingredient_name);
-            statement.setString(3, vendor_id);
-            statement.setString(4, supplier_id);
-            statement.setString(5, quantity);
-            statement.setString(6, unit);
-            statement.setString(7, dish_id);
-            statement.setString(8, ingredient_name);
-            statement.setString(9, vendor_id);
-            statement.setString(10, supplier_id);
+            statement.setString(1, quantity);
+            statement.setString(2, unit);
+            statement.setString(3, dish_id);
+            statement.setString(4, ingredient_name);
+            statement.setString(5, vendor_id);
+            statement.setString(6, supplier_id);
             int row = statement.executeUpdate();
         }catch(Exception e)
         {
