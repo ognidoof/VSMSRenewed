@@ -18,6 +18,15 @@ public class Order {
         this.total_final_price = total_final_price;
     }
     
+    public Order(int order_id, int vendor_id, double total_final_price, ArrayList<Orderline> orderlines){
+        this.order_id = order_id;
+        this.vendor_id = vendor_id;
+        this.total_final_price = total_final_price;
+        this.orderlines = orderlines;
+    }
+    
+    
+    
     public int getOrder_id(){
         return order_id;
     }
