@@ -101,4 +101,5 @@ public class Supplier {
     public String toString() {
         return "Supplier ID: " + supplier_id + ", name: " + supplier_name + ", password: " + password + ", type: " + supplier_type + " description " + supplier_description+", email: "+email+" telephone_number "+area_code+telephone_number +" address "+address;
     }
+
 }

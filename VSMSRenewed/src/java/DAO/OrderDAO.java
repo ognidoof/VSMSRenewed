@@ -40,7 +40,7 @@ public class OrderDAO {
         try {
             //creates connections to database
             conn = ConnectionManager.getConnection();
-            sql = "Select * from order";
+            sql = "Select * from `order`";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -61,6 +61,40 @@ public class OrderDAO {
         }
         return orderList;
     }
+//methods retrieves order from order id
+
+    public static Order retrieveOrderByID(int order_id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "";
+        Order order = null;
+        try {
+            //creates connections to database
+            conn = ConnectionManager.getConnection();
+            sql = "Select * from `order` WHERE order_id = ##";
+            sql = sql.replace("##", "" + order_id);
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            //Retrieves the orders
+            while (rs.next()) {
+                int vendor_id = rs.getInt("vendor_id");
+
+                //int vendor_id = rs.getInt("vendor_id");
+                double total_final_price = rs.getDouble("total_final_price");
+                ArrayList<Orderline> orderLineList = retrieveOrderLineList(vendor_id, order_id);
+
+                order = new Order(order_id, vendor_id, total_final_price, orderLineList);
+
+            }
+        } catch (SQLException e) {
+            handleSQLException(e, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return order;
+    }
 
     //methods retrieves all order from a particular vendor
     public static ArrayList<Order> retrieveOrderList(int vendor_id) {
@@ -72,7 +106,7 @@ public class OrderDAO {
         try {
             //creates connections to database
             conn = ConnectionManager.getConnection();
-            sql = "Select * from order WHERE vendor_id = ##";
+            sql = "Select * from `order` WHERE vendor_id = ##";
             sql = sql.replace("##", "" + vendor_id);
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -144,7 +178,7 @@ public class OrderDAO {
         //insert new order into data base
         try {
             conn = ConnectionManager.getConnection();
-            sql = "insert into order (order_id, vendor_id, total_final_price) values (#1,#2,#3)";
+            sql = "insert into `order`( order_id, vendor_id, total_final_price) values (#1,#2,#3)";
             sql = sql.replace("#1", "" + order.getOrder_id());
             sql = sql.replace("#2", "" + order.getVendor_id());
             sql = sql.replace("#3", "" + order.getTotal_final_price());
@@ -186,8 +220,7 @@ public class OrderDAO {
             sql = sql.replace("#2", "" + order.getVendor_id());
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
-            
-            
+
             ArrayList<Orderline> orderLineList = order.getOrderlines();
             for (Orderline orderline : orderLineList) {
                 sql = "Delete from orderline where vendor_id=#1 AND order_id=#2";
@@ -196,8 +229,7 @@ public class OrderDAO {
                 stmt = conn.prepareStatement(sql);
                 stmt.executeUpdate();
             }
-            
-            
+
         } catch (SQLException e) {
             handleSQLException(e, sql);
         } finally {

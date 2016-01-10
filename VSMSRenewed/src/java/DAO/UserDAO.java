@@ -365,7 +365,7 @@ public class UserDAO {
         try {
             //creates connections to database
             conn = ConnectionManager.getConnection();
-            sql = "Select * from supplier where vendor_id = ?";
+            sql = "Select * from vendor where vendor_id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, vendor_id);
             rs = stmt.executeQuery();

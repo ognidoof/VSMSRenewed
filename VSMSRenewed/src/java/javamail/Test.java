@@ -5,8 +5,12 @@
  */
 package javamail;
 
+import DAO.OrderDAO;
+import DAO.UserDAO;
 import Model.Order;
 import Model.Supplier;
+import Model.Vendor;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -24,16 +28,20 @@ public class Test {
 
         if (!user.equals("") && !password.equals("")) {
           EmailController emailController = new EmailController(host,user,password);
-          emailController.sendMessage("vincentt.2013@sis.smu.edu.sg","Receiving order from <supplier>; Order ID : ...", "Your order is tested here \n Hello I am your <ul><li>d</li></ul>");
+//          emailController.sendMessage("vincentt.2013@sis.smu.edu.sg","Receiving order from <supplier>; Order ID : ...", "Your order is tested here \n Hello I am your <ul><li>d</li></ul>");
         } else {
             System.out.println("User email and password are empty. Please correct the problem");
         }
         
         //create an order test system HAVENT TESTED(need a proper order and list)
-        Order order = new Order(23,2,32);
-        HashMap<Supplier,String> suppOrderMap = EmailController.supplierMessageList(order);
-        EmailController.sendMessageToSuppliers(suppOrderMap);
-        EmailController.sendMessageToVendor(null, suppOrderMap);
+        Order order = OrderDAO.retrieveOrderByID(10);
+        Vendor vendor = UserDAO.getVendorByID(order.getVendor_id());
+        
+        //Getting hashmap of supplier and text message to send to each supplier / vendor
+        HashMap<Integer,String> suppOrderMap = EmailController.supplierMessageList(order);
+        
+        EmailController.sendMessageToSuppliers(vendor.getVendor_name(),suppOrderMap);
+        EmailController.sendMessageToVendor(vendor, suppOrderMap);
     }
       
     
