@@ -33,7 +33,8 @@ public class OrderDAO {
         throw new RuntimeException(msg, e);
     }
     
-    public static ArrayList<Order> retrieveOrderList() {
+    //methods retrieves ALL orders in the database regardless of vendor or supplier
+    public static ArrayList<Order> retrieveAllOrderList() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -46,13 +47,14 @@ public class OrderDAO {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
-            //Retrieves the supplier info from database and create a new supplier object to return
+            //Retrieves the orders from the database
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 int vendor_id = rs.getInt("vendor_id");
                 double total_final_price = rs.getDouble("total_final_price");
-
-                Order order = new Order(order_id, vendor_id ,total_final_price);
+                ArrayList<Orderline> orderLineList = retrieveOrderLineList(vendor_id, order_id );
+               
+                Order order = new Order(order_id, vendor_id ,total_final_price, orderLineList);
                 orderList.add(order);
             }
         } catch (SQLException e) {
@@ -63,7 +65,8 @@ public class OrderDAO {
         return orderList;
     }
     
-    public static ArrayList<Orderline> retrieveOrderLineList(int vendor_id, int order_id ) {
+    //methods retrieves all order from a particular vendor
+    public static ArrayList<Order> retrieveOrderList(int vendor_id) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -72,13 +75,48 @@ public class OrderDAO {
         try {
             //creates connections to database
             conn = ConnectionManager.getConnection();
+            sql = "Select * from order WHERE vendor_id = ##";
+            sql = sql.replace("##", ""+vendor_id);
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            //Retrieves the orders
+            while (rs.next()) {
+                int order_id = rs.getInt("order_id");
+                
+                //int vendor_id = rs.getInt("vendor_id");
+                double total_final_price = rs.getDouble("total_final_price");
+                ArrayList<Orderline> orderLineList = retrieveOrderLineList(vendor_id, order_id );
+               
+                Order order = new Order(order_id, vendor_id ,total_final_price, orderLineList);
+                orderList.add(order);
+            }
+        } catch (SQLException e) {
+            handleSQLException(e, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return orderList;
+    }
+    
+    
+    //method retrieves all orderline items of a particular order
+    public static ArrayList<Orderline> retrieveOrderLineList(int vendor_id, int order_id ) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "";
+        ArrayList<Orderline> orderLineList = new ArrayList<Orderline>();
+        try {
+            //creates connections to database
+            conn = ConnectionManager.getConnection();
             sql = "SELECT * FROM `orderline` WHERE vendor_id = #1 && order_id = #2";
             sql = sql.replace("#1", ""+vendor_id);
             sql = sql.replace("#2", ""+order_id);
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-            ArrayList<Orderline> orderLineList = new ArrayList<Orderline>();
-            //Retrieves the supplier info from database and create a new supplier object to return
+            
+            //Retrieves the orderline info from database
             while (rs.next()) {
                 
 //                int vendor_id = rs.getInt("vendor_id");
@@ -92,13 +130,13 @@ public class OrderDAO {
                 Orderline orderline = new Orderline(vendor_id, order_id ,supplier_id, ingredient_name, price, quantity, buffer_percentage);
                 orderLineList.add(orderline);
             }
-            return orderLineList;
+           
         } catch (SQLException e) {
             handleSQLException(e, sql);
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        return orderList;
+        return orderLineList;
     }
     
 }
