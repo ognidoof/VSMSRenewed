@@ -281,6 +281,9 @@ public class OrderDAO {
                 sql = sql.replace("#4", "" + newOrderline.getBufferpercentage());
                 sql = sql.replace("#5", "" + newOrderline.getVendor_id());
                 sql = sql.replace("#6", "" + newOrderline.getSupplier_id());
+                stmt = conn.prepareStatement(sql);
+                stmt.executeUpdate();
+                
             }catch(SQLException e){
             handleSQLException(e, sql);
             }finally{
