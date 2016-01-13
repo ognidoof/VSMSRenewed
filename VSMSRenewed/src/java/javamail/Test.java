@@ -33,7 +33,6 @@ public class Test {
             System.out.println("User email and password are empty. Please correct the problem");
         }
         
-        //create an order test system HAVENT TESTED(need a proper order and list)
         Order order = OrderDAO.retrieveOrderByID(10);
         Vendor vendor = UserDAO.getVendorByID(order.getVendor_id());
         
