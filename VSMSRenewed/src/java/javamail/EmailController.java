@@ -100,7 +100,7 @@ public class EmailController {
     //TODO: convert the orders into message string for vendor
     public static void sendMessageToVendor(Vendor vendor, HashMap<Integer, String> suppOrderMap) {
         Iterator iter = suppOrderMap.keySet().iterator();
-        String messageText = "<b>This should be bold</b>";
+        String messageText = "";
         while (iter.hasNext()) {
             int supplier_id = (Integer) iter.next();
             Supplier supplier = UserDAO.getSupplierById(supplier_id);

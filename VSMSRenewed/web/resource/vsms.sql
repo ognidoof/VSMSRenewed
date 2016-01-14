@@ -7,6 +7,11 @@
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
+/*This is to refresh the database vsms, so that you do not need to keep deleting whenever you need to import this file onto the admin*/
+drop database vsms;
+create database vsms;
+use vsms;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -92,9 +97,9 @@ INSERT INTO `favourite_supplier` (`vendor_id`, `supplier_id`) VALUES
 --
 -- Table structure for table `ingredient`
 --
-
 CREATE TABLE IF NOT EXISTS `ingredient` (
   `supplier_id` varchar(15) NOT NULL,
+  `ingredient_id` varchar(30) NOT NULL,
   `ingredient_name` varchar(30) NOT NULL,
   `supply_unit` varchar(15) NOT NULL,
   `category` varchar(15) NOT NULL,
@@ -104,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `ingredient` (
   KEY `ingredient_type` (`category`),
   KEY `unit` (`supply_unit`),
   KEY `ingredient_name` (`ingredient_name`),
+  KEY `ingredient_id` (`ingredient_id`),
   KEY `offered_price` (`offered_price`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -111,11 +117,31 @@ CREATE TABLE IF NOT EXISTS `ingredient` (
 -- Dumping data for table `ingredient`
 --
 
-INSERT INTO `ingredient` (`supplier_id`, `ingredient_name`, `supply_unit`, `category`, `ingredient_description`, `offered_price`) VALUES
-('1', '3d circle', 'kg', 'meat', 'you don''t want to know where this came from', '10.0'),
-('1', 'orb', 'kg', 'unknown', 'you don''t want to know where this came from', '10.0'),
-('1', 'round  object', 'kg', 'meat', 'you don''t want to know where this came from', '10.0'),
-('1', 'sphere', 'kg', 'meat', 'you don''t want to know where this came from', '10.0');
+INSERT INTO `ingredient` (`supplier_id`, `ingredient_id`, `ingredient_name`, `supply_unit`, `category`, `ingredient_description`, `offered_price`) VALUES
+('1', '1', 'Coffee Beans', 'g', 'Misc', '', ''),
+('1', '8', 'Lettuce', 'whole', 'Vegetable', '', ''),
+('1', '14', 'Pink oranges', 'whole', 'Fruit', '', ''),
+('1', '4', 'Potatoes', 'g', 'Vegetable', '', ''),
+('1', '15', 'Purple apples', 'whole', 'Fruit', '', ''),
+('1', '16', 'Rainbow pineapple', 'whole', 'Fruit', '', ''),
+('1', '13', 'Strawberry', 'g', 'Fruit', '', ''),
+('1', '9', 'Tomatoes', 'g', 'Vegetable', '', ''),
+('1', '12', 'Whole Chickens', 'whole', 'Meat', '', ''),
+('2', '17', 'Chicken feet', 'g', 'Meat', '', ''),
+('2', '19', 'Foreign chicken', 'whole', 'Meat', '', ''),
+('2', '18', 'Local chicken', 'whole', 'Meat', '', ''),
+('2', '24', 'White Sugar', 'Cup', 'Bakery', 'White sugar to fulfill your sweet needs', ''),
+('3', '20', 'Blue spinach', 'g', 'Vegetable', '', ''),
+('3', '21', 'Organic olives', 'g', 'Vegetable', '', ''),
+('3', '22', 'Rainbow cabbage', 'whole', 'Vegetable', '', ''),
+('4', '7', 'Ground Beef', 'g', 'Meat', '', ''),
+('4', '23', 'Leg of Duck', 'whole', 'Meat', '', ''),
+('4', '6', 'Rib Eye', 'g', 'Meat', '', ''),
+('5', '2', 'Leg of Duck', 'whole', 'Meat', '', ''),
+('5', '3', 'Parsley', 'g', 'Spice', '', ''),
+('5', '10', 'Rosemary', 'g', 'Spice', '', ''),
+('5', '5', 'Sage', 'g', 'Spice', '', ''),
+('5', '11', 'Thyme', 'g', 'Spice', '', '');
 
 -- --------------------------------------------------------
 
