@@ -626,4 +626,56 @@ public class IngredientDAO {
         }
         
     }
+    
+    public ArrayList<Integer> getSupplierIdByIngredient(String ingredient_name){
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        String query = "";
+        ArrayList<Integer> idList=new ArrayList<Integer>();
+        
+        try
+        {
+            conn=ConnectionManager.getConnection();
+            query = "select * from ingredient where ingredient_name=? group by supplier_id";
+            statement = conn.prepareStatement(query);
+            statement.setString(1,ingredient_name);
+            rs = statement.executeQuery();
+            while(rs.next()){
+                int supId=Integer.parseInt(rs.getString("supplier_id"));
+                idList.add(supId);        
+            }
+            
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if(statement != null)
+            {
+                try
+                {
+                    statement.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null)
+            {
+                try
+                {
+                    conn.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }                
+            }
+        }
+        return idList;
+    }
+    
 }
