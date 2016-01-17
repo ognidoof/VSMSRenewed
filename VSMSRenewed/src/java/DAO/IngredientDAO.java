@@ -217,6 +217,58 @@ public class IngredientDAO {
         }
     }
     
+    public static ArrayList<Ingredient> getIngredientBySupplier(int supplier_id){
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        String query = "";
+        ArrayList<Ingredient> ingredientList=new ArrayList<Ingredient>();
+        
+        try
+        {
+            conn=ConnectionManager.getConnection();
+            query = "select * from ingredient where supplier_id=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1,supplier_id+"");
+            rs = statement.executeQuery();
+            while(rs.next()){
+                int supId=Integer.parseInt(rs.getString("supplier_id"));
+                Ingredient ingredient=new Ingredient(supId, rs.getString("ingredient_name"), rs.getString("supply_unit"), rs.getString("category"), rs.getString("ingredient_description"), rs.getString("offered_price"));
+                ingredientList.add(ingredient);
+            }
+            
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if(statement != null)
+            {
+                try
+                {
+                    statement.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null)
+            {
+                try
+                {
+                    conn.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }                
+            }
+        }
+        return ingredientList;
+    }
+    
     public static ArrayList<Dish> getDish(String vendor_id){
         Connection conn = null;
         PreparedStatement statement = null;
