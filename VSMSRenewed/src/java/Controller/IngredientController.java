@@ -66,4 +66,8 @@ public class IngredientController {
     public static void updateIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id, String quantity, String unit){
         iDAO.updateIngredientQuantity(dish_id, ingredient_name, vendor_id, supplier_id, quantity, unit);
     }
+    
+    public static ArrayList<Integer> getSupplierIdByIngredient(String ingredient_name){
+        return iDAO.getSupplierIdByIngredient(ingredient_name);
+    }
 }
