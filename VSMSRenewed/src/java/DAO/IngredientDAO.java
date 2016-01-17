@@ -21,7 +21,7 @@ import java.util.Set;
  * @author David
  */
 public class IngredientDAO {
-    public Ingredient getIngredient(String supplierId, String ingredientName){
+    public static Ingredient getIngredient(String supplierId, String ingredientName){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -73,7 +73,7 @@ public class IngredientDAO {
         return ingredient;
     }
     
-    public int addIngredient(Ingredient ingredient){
+    public static int addIngredient(Ingredient ingredient){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -124,7 +124,7 @@ public class IngredientDAO {
 
     }
     
-    public void deleteIngredient(Ingredient ingredient){
+    public static void deleteIngredient(Ingredient ingredient){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -168,7 +168,7 @@ public class IngredientDAO {
         } 
     }
     
-    public void updateIngredient(Ingredient ingredient){
+    public static void updateIngredient(Ingredient ingredient){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -217,7 +217,7 @@ public class IngredientDAO {
         }
     }
     
-    public ArrayList<Dish> getDish(String vendor_id){
+    public static ArrayList<Dish> getDish(String vendor_id){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -268,7 +268,7 @@ public class IngredientDAO {
         return dishList;
     }
         
-    public HashMap<Ingredient, ArrayList<String>> getIngredientQuantity(String dish_id, String vendor_id) {
+    public static HashMap<Ingredient, ArrayList<String>> getIngredientQuantity(String dish_id, String vendor_id) {
         HashMap<Ingredient, ArrayList<String>> toReturn = new HashMap<Ingredient, ArrayList<String>>();
         Connection conn = null;
         PreparedStatement statement = null;
@@ -286,7 +286,7 @@ public class IngredientDAO {
                 ArrayList<String> tempList = new ArrayList<String>();
                 tempList.add(rs.getString("quantity"));
                 tempList.add(rs.getString("unit"));
-                toReturn.put(this.getIngredient(rs.getString("supplier_id"), rs.getString("ingredient_name")), tempList);
+                toReturn.put(getIngredient(rs.getString("supplier_id"), rs.getString("ingredient_name")), tempList);
             }
 
         } catch (Exception e) {
@@ -310,7 +310,7 @@ public class IngredientDAO {
         return toReturn;
     }
     
-    public void addDish(Dish dish){
+    public static void addDish(Dish dish){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -333,7 +333,7 @@ public class IngredientDAO {
             while(iter.hasNext()){
                 Ingredient tempI=iter.next();
                 ArrayList<String> tempList=map.get(tempI);
-                this.addIngredientQuantity(tempI, tempList.get(0), tempList.get(1), dish.getDish_id()+"", dish.getVendor_id()+"");
+                addIngredientQuantity(tempI, tempList.get(0), tempList.get(1), dish.getDish_id()+"", dish.getVendor_id()+"");
             }
         }catch(Exception e)
         {
@@ -367,7 +367,7 @@ public class IngredientDAO {
         
     }
     
-    public void addIngredientQuantity(Ingredient ingredient,String quantity, String unit, String dish_id, String vendor_id){
+    public static void addIngredientQuantity(Ingredient ingredient,String quantity, String unit, String dish_id, String vendor_id){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -417,14 +417,14 @@ public class IngredientDAO {
         
     }
     
-    public void deleteDish(Dish dish){
+    public static void deleteDish(Dish dish){
         HashMap<Ingredient, ArrayList<String>> map=dish.getIngredientQuantity();
         Set<Ingredient> iSet = map.keySet();
         Iterator<Ingredient> iter = iSet.iterator();
         while (iter.hasNext()) {
             Ingredient tempI = iter.next();
             ArrayList<String> tempList = map.get(tempI);
-            this.deleteIngredientQuantity(dish.getDish_id()+"", tempI.getName(), dish.getVendor_id()+"", tempI.getSupplier_id() + "");
+            deleteIngredientQuantity(dish.getDish_id()+"", tempI.getName(), dish.getVendor_id()+"", tempI.getSupplier_id() + "");
         }
         Connection conn = null;
         PreparedStatement statement = null;
@@ -473,7 +473,7 @@ public class IngredientDAO {
         
     }
     
-    public void deleteIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id){
+    public static void deleteIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -520,7 +520,7 @@ public class IngredientDAO {
         
     }
     
-    public void updateDish(Dish dish){
+    public static void updateDish(Dish dish){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -574,11 +574,11 @@ public class IngredientDAO {
         while (iter.hasNext()) {
             Ingredient tempI = iter.next();
             ArrayList<String> tempList = map.get(tempI);
-            this.updateIngredientQuantity(dish.getDish_id()+"", tempI.getName(), dish.getVendor_id()+"", tempI.getSupplier_id() + "",tempList.get(0),tempList.get(1));
+            updateIngredientQuantity(dish.getDish_id()+"", tempI.getName(), dish.getVendor_id()+"", tempI.getSupplier_id() + "",tempList.get(0),tempList.get(1));
         }
     }
     
-    public void updateIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id, String quantity, String unit){
+    public static void updateIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id, String quantity, String unit){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -627,7 +627,7 @@ public class IngredientDAO {
         
     }
     
-    public ArrayList<Integer> getSupplierIdByIngredient(String ingredient_name){
+    public static ArrayList<Integer> getSupplierIdByIngredient(String ingredient_name){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
