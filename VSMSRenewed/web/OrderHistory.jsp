@@ -3,8 +3,6 @@
 <%@page import="Model.Order"%>
 <%@page import="java.util.ArrayList"%>
 
-<!DOCTYPE HTML>
-
 <html>
     <head>
         <meta charset="utf-8" />
