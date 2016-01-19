@@ -9,10 +9,16 @@ package DAO;
  *
  * @author Benjamin
  */
+
 import Controller.ConnectionManager;
+import Controller.UtilityController;
 import Model.*;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.*;
 
 public class OrderDAO {
@@ -49,9 +55,10 @@ public class OrderDAO {
                 int order_id = rs.getInt("order_id");
                 int vendor_id = rs.getInt("vendor_id");
                 double total_final_price = rs.getDouble("total_final_price");
+                Date dt_order = rs.getDate("dt");
                 ArrayList<Orderline> orderLineList = retrieveOrderLineList(vendor_id, order_id);
 
-                Order order = new Order(order_id, vendor_id, total_final_price, orderLineList);
+                Order order = new Order(order_id, vendor_id, total_final_price, dt_order, orderLineList);
                 orderList.add(order);
             }
         } catch (SQLException e) {
@@ -83,10 +90,11 @@ public class OrderDAO {
 
                 //int vendor_id = rs.getInt("vendor_id");
                 double total_final_price = rs.getDouble("total_final_price");
+                Date dt_order = rs.getDate("dt");
                 ArrayList<Orderline> orderLineList = retrieveOrderLineList(vendor_id, order_id);
 
-                order = new Order(order_id, vendor_id, total_final_price, orderLineList);
-
+                order = new Order(order_id, vendor_id, total_final_price, dt_order, orderLineList);
+                
             }
         } catch (SQLException e) {
             handleSQLException(e, sql);
@@ -98,6 +106,7 @@ public class OrderDAO {
 
     //methods retrieves all order from a particular vendor
     public static ArrayList<Order> retrieveOrderList(int vendor_id) {
+        ConnectionManager connManager = new ConnectionManager();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -105,7 +114,7 @@ public class OrderDAO {
         ArrayList<Order> orderList = new ArrayList<Order>();
         try {
             //creates connections to database
-            conn = ConnectionManager.getConnection();
+            conn = connManager.getConnection();
             sql = "Select * from `order` WHERE vendor_id = ##";
             sql = sql.replace("##", "" + vendor_id);
             stmt = conn.prepareStatement(sql);
@@ -117,15 +126,17 @@ public class OrderDAO {
 
                 //int vendor_id = rs.getInt("vendor_id");
                 double total_final_price = rs.getDouble("total_final_price");
+                Date dt_order = rs.getDate("dt");
                 ArrayList<Orderline> orderLineList = retrieveOrderLineList(vendor_id, order_id);
 
-                Order order = new Order(order_id, vendor_id, total_final_price, orderLineList);
+                Order order = new Order(order_id, vendor_id, total_final_price, dt_order, orderLineList);
+                
                 orderList.add(order);
             }
         } catch (SQLException e) {
             handleSQLException(e, sql);
         } finally {
-            ConnectionManager.close(conn, stmt, rs);
+            connManager.close(conn, stmt, rs);
         }
         return orderList;
     }
@@ -169,7 +180,7 @@ public class OrderDAO {
         return orderLineList;
     }
 
-    public void addOrder(Order order) {
+    public static void addOrder(Order order) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -178,10 +189,11 @@ public class OrderDAO {
         //insert new order into data base
         try {
             conn = ConnectionManager.getConnection();
-            sql = "insert into `order`( order_id, vendor_id, total_final_price) values (#1,#2,#3)";
+            sql = "insert into `order`( order_id, vendor_id, total_final_price,dt) values (#1,#2,#3,#4)";
             sql = sql.replace("#1", "" + order.getOrder_id());
             sql = sql.replace("#2", "" + order.getVendor_id());
             sql = sql.replace("#3", "" + order.getTotal_final_price());
+            sql = sql.replace("#4", "" + UtilityController.convertSQLDateTimeString(order.getDtOrder()));
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
 
@@ -208,7 +220,7 @@ public class OrderDAO {
 
     }
 
-    public void deleteOrder(Order order) {
+    public static void deleteOrder(Order order) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -237,7 +249,7 @@ public class OrderDAO {
         }
     }
 
-    public void updateOrder(Order order){
+    public static void updateOrder(Order order){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -263,7 +275,7 @@ public class OrderDAO {
         }
     }
     
-    public void updateOrderlines(ArrayList<Orderline> orderlines){
+    public static void updateOrderlines(ArrayList<Orderline> orderlines){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
