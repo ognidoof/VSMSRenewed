@@ -162,6 +162,10 @@ CREATE TABLE IF NOT EXISTS `ingredient_quantity` (
   KEY `unit` (`unit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `ingredient_quantity` (`dish_id`, `ingredient_name`, `quantity`, `vendor_id`, `supplier_id`, `unit`) VALUES 
+('1', 'Coffee Beans', '50', '1', '1', 'g'),
+('1', 'White Sugar', '10', '1', '2', 'g');
+
 -- --------------------------------------------------------
 
 --

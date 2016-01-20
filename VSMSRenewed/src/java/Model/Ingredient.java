@@ -73,6 +73,10 @@ public class Ingredient {
     public void setOfferedPrice(String offeredPrice) {
         this.offeredPrice = offeredPrice;
     }
+
+    public String toString() {
+        return "Ingredient{" + "supplier_id=" + supplier_id + ", name=" + name + ", supplyUnit=" + supplyUnit + ", subcategory=" + subcategory + ", description=" + description + ", offeredPrice=" + offeredPrice + '}';
+    }
     
     
     

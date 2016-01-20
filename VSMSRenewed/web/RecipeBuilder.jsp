@@ -4,6 +4,9 @@
     Author     : Benjamin
 --%>
 
+<%@page import="Controller.IngredientController"%>
+<%@page import="Model.Dish"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -16,56 +19,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         
-            <script>
-            function myFunction() {
-                $('.ui.basic.modal')
-                        .modal('show')
-                        ;
-            }
-            
-        </script>
         <title>Recipe Builder</title>
+        <%
+          ArrayList<Dish> dishList = IngredientController.getDish("1");
+        %>
     </head>
     <body>
-       
-  <div class="ui huge header">Huge Header</div>
-        <h1>Recipe Builder</h1>
-
-
-        <div class="ui page grid">
-
- <div class="ui grid container">
-        <div class="ui button" onclick="myFunction()">Add Ingredient</div>
-        </div>
-        
-        
-        <div class="ui basic modal" >
-            <i class="close icon"></i>
-            <div class="header">
-                Archive Old Messages
-            </div>
-            <div class="image content">
-                <div class="image">
-                    <i class="archive icon"></i>
-                </div>
-                <div class="description">
-                    <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
-                </div>
-            </div>
-            <div class="actions">
-                <div class="two fluid ui inverted buttons">
-                    <div class="ui red basic inverted button">
-                        <i class="remove icon"></i>
-                        No
-                    </div>
-                    <div class="ui green basic inverted button">
-                        <i class="checkmark icon"></i>
-                        Yes
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
+        <h1>Recipe Builder List</h1>
+        <ul>
+            <% for (Dish dish :dishList){%>
+            <li><%=dish%></li>
+            <%}%>
+        </ul>
     </body>
 </html>
 

@@ -7,6 +7,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  *
@@ -66,5 +67,21 @@ public class Dish {
     public void setIngredientQuantity(HashMap<Ingredient, ArrayList<String>> ingredientQuantity) {
         this.ingredientQuantity = ingredientQuantity;
     }
+
+    @Override
+    public String toString() {
+        String description = "";
+        description+= "Dish{" + "dish_id=" + dish_id + ", dish_name=" + dish_name + ", vendor_id=" + vendor_id + ", dish_description=" + dish_description + ", }\n"; 
+        
+        System.out.println("ingredient quantity is "+ingredientQuantity);
+        Set<Ingredient> ingredientSet = ingredientQuantity.keySet();
+        
+        for (Ingredient ingredient : ingredientSet){
+            description += ingredient+"\n";
+        }
+        return description;
+    }
+    
+
     
 }
