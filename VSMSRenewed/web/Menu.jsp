@@ -51,7 +51,7 @@
             </div>
 
             <div class="content">
-                <form id="addIngredient" action="ingredientservlet" method="post"> 
+                <form class="ui form" id="addIngredient" action="ingredientservlet" method="post"> 
                     <!--Inputting form elements-->
                     Dish Name: <input type="text" name="dish_name"/>
                     Dish Description: <textarea name="dish_description">Enter dish description here...</textarea>
@@ -59,7 +59,7 @@
                     <!--Input hidden attributes-->
                     <input type="hidden" name="vendor_id" value="1">
                     
-                    <input type="submit" value="Add" class="ui teal button submit-dish-button" /> 
+                    <input type="submit" value="Add" class="ui teal button" /> 
                 </form>
             </div>
             <div class="actions">
@@ -71,6 +71,7 @@
         </div>
         <!--JAVASCRIPT-->
         <!--for general Javascript please refer to the main js. For others, please just append the script line below-->
+        <script src="js/formvalidation.js" type="text/javascript"></script>
         <script src="js/main.js" type="text/javascript"></script>
     </body>
 </html>

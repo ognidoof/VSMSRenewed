@@ -12,6 +12,7 @@ import Model.Order;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,11 +29,12 @@ public class IngredientController extends HttpServlet {
         String dish_name = request.getParameter("dish_name");
         String dish_description = request.getParameter("dish_description");
         String vendor_idStr = request.getParameter("vendor_id");
-        System.out.println("It reaches here: "+dish_name+","+dish_description+","+vendor_idStr);
+        
+//        Open out this code if you would like to test out request parameters
+//        System.out.println("It reaches here: "+dish_name+","+dish_description+","+vendor_idStr);
         
         //Check null values to add the creation process
         if(!UtilityController.checkNullStringArray(new String[]{dish_name,dish_description,vendor_idStr})){
-            System.out.println("This is the checknullstring array");
             // Getting the id of dish and vendors
             //Get the number of dishes and add by one to become dish_id and create blank ingredient dish first. 
             //This is less efficient, cause need to call dishes at least twice, but it would be faster than iterating or filtering alldish
@@ -41,16 +43,16 @@ public class IngredientController extends HttpServlet {
             int vendor_id = UtilityController.convertStringtoInt(vendor_idStr);
 
             addDish(new Dish(dish_id,dish_name,vendor_id,dish_description));
+            response.sendRedirect("Menu.jsp");
 
         }
-        System.out.println("This is the array after checknull");
         
         String dishListString = "";        
         ArrayList<Dish> dishList = getDish("1");
         
-        System.out.println("The dishlist is " +dishList);
         for (Dish dish :dishList){
             dishListString += "<li>"+dish+"</li>";
+            dishListString += "<a href=\"RecipeBuilder.jsp?dish_id="+dish.getDish_id()+"\"> Edit </a>";
         }
         
         response.setContentType("text/plain");  // Set content type of the response so that AJAX knows what it can expect.
@@ -62,23 +64,42 @@ public class IngredientController extends HttpServlet {
     //doGet will be given to RecipeBuilder.java
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int supplier_id = UtilityController.convertStringtoInt(request.getParameter("supplier_id")); 
+        String dish_id = request.getParameter("dish_id");
         String name = request.getParameter("name");
         String supplyUnit = request.getParameter("supplyUnit");
         String subcategory = request.getParameter("subcategory");
         String description = request.getParameter("description");
         String offeredPrice = request.getParameter("offeredPrice");
+        //Open out this code if you would like to test out request parameters
+        System.out.println("It reaches here: "+dish_id+","+name+","+supplyUnit+","+subcategory+","+description+","+offeredPrice);
         
-        Ingredient ingredient = new Ingredient(supplier_id,name,supplyUnit, subcategory,description,offeredPrice);
-        String dishListString = "";
+        //Check null values to add the creation process
+        if(!UtilityController.checkNullStringArray(new String[]{name,supplyUnit,subcategory,description,offeredPrice})){
+            Ingredient ingredient = new Ingredient(supplier_id,name,supplyUnit, subcategory,description,offeredPrice);
+        }
         
-        ArrayList<Dish> dishList = getDish("1");
-        for (Dish dish :dishList){
-            dishListString += "<li>"+dish+"</li>";
+        
+//        Reading the ingredients of a dish
+        String ingredientListString = "";
+        
+        HashMap<Ingredient,ArrayList<String>> ingredientList =  getIngredientQuantity(dish_id);
+        System.out.println("The ingredient list is ");
+        if(ingredientList.isEmpty()){
+            System.out.println("it is empty");
+        } else{
+            System.out.println("Not empty");
+        }
+        Iterator iter = ingredientList.keySet().iterator();
+        while (iter.hasNext()){
+            Ingredient ingredient = (Ingredient)iter.next();
+            ingredientListString += "<li>"+ingredient+"</li>";
+            
+            System.out.println("here inside the iteration , ingredient "+ingredient);
         }
         
         response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-        response.getWriter().write(dishListString);       // Write response body.
+        response.getWriter().write(ingredientListString);       // Write response body.
     }
 
     public static ArrayList<Ingredient> getIngredientBySupplier(int supplier_id) {

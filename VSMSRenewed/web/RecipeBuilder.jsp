@@ -15,14 +15,15 @@
         <title>Recipe Builder</title>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script>
-            $(document).ready(function() {
-                //Need to add this form to add and refresh the table browser.
-                $("ingredientservlet").ajaxForm(function() {
+            $(document).ready(function() { // Prepare the document to ready all the dom functions before running this code
+                $.get("ingredientservlet", {dish_id:"<%=request.getParameter("dish_id")%>"},function(responseText) {   
+                    $("#ingredientListAdded").append(responseText);          
+                });
+                $('.create-ingredient-button').click(function() {
+                    //show modal button
                     $('#modaldiv').modal('show');
                 });
-                $('.order-button').click(function() {
-                    $('#modaldiv').modal('show');
-                });
+
             });
 
         </script>
@@ -37,11 +38,11 @@
     </head>
     <body>
         <h1>Recipe Builder List</h1>
-        <ul id="dishListAdded">
+        <ul id="ingredientListAdded">
         </ul>
 
         <!--MODAL DIV-->
-        <button type="submit" name="submit" class="ui teal button order-button">Order now</button>
+        <button type="submit" name="submit" class="ui teal button create-ingredient-button">Order now</button>
 
         <div id="modaldiv" class="ui small modal">
             <i class="close icon"></i>
@@ -56,7 +57,11 @@
                     Sub category: <input type="text" name="subcategory" />
                     Description: <input type="text" name="description" />
                     Price offered: <input type="text" name="offeredPrice" />
-                    <input type="submit" value="Add" class="ui teal button add-ingredient-button" /> 
+                    
+                    <!--Input hidden attributes-->
+                    <input type="hidden" name="dish_id" value="<%=request.getParameter("dish_id")%>">
+                    
+                    <input type="submit" value="Add" class="ui teal button" /> 
                 </form>
             </div>
             <div class="actions">
