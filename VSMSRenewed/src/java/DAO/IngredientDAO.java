@@ -285,7 +285,7 @@ public class IngredientDAO {
             while(rs.next()){
                int dishId=Integer.parseInt(rs.getString("dish_id"));
                int venId=Integer.parseInt(rs.getString("vendor_id"));
-               dishList.add(new Dish(dishId,rs.getString("dish_name"),venId, rs.getString("dish_description"), getIngredientQuantity(rs.getString("dish_id"), vendor_id)));   
+               dishList.add(new Dish(dishId,rs.getString("dish_name"),venId, rs.getString("dish_description"), getIngredientQuantity(rs.getString("dish_id"))));   
             }
             
         }catch(Exception e)
@@ -320,7 +320,7 @@ public class IngredientDAO {
         return dishList;
     }
         
-    public static HashMap<Ingredient, ArrayList<String>> getIngredientQuantity(String dish_id, String vendor_id) {
+    public static HashMap<Ingredient, ArrayList<String>> getIngredientQuantity(String dish_id) {
         HashMap<Ingredient, ArrayList<String>> toReturn = new HashMap<Ingredient, ArrayList<String>>();
         Connection conn = null;
         PreparedStatement statement = null;
@@ -329,10 +329,9 @@ public class IngredientDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            query = "select * from Ingredient_Quantity where dish_id=? AND vendor_id=?";
+            query = "select * from Ingredient_Quantity where dish_id=?";
             statement = conn.prepareStatement(query);
             statement.setString(1, dish_id);
-            statement.setString(2, vendor_id);
             rs = statement.executeQuery();
             while (rs.next()) {
                 ArrayList<String> tempList = new ArrayList<String>();
@@ -728,6 +727,56 @@ public class IngredientDAO {
             }
         }
         return idList;
+    }
+
+    public static ArrayList<Dish> getAllDish(){
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        String query = "";
+        ArrayList<Dish> dishList=new ArrayList<Dish>();
+        try
+        {
+            conn=ConnectionManager.getConnection();
+            query = "select * from Dish";
+            statement = conn.prepareStatement(query);
+            rs = statement.executeQuery();
+            while(rs.next()){
+               int dishId=Integer.parseInt(rs.getString("dish_id"));
+               int venId=Integer.parseInt(rs.getString("vendor_id"));
+               dishList.add(new Dish(dishId,rs.getString("dish_name"),venId, rs.getString("dish_description"), getIngredientQuantity(rs.getString("dish_id"))));   
+            }
+            
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if(statement != null)
+            {
+                try
+                {
+                    statement.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null)
+            {
+                try
+                {
+                    conn.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }                
+            }
+        }
+        return dishList;
     }
     
 }

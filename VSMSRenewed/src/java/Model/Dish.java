@@ -20,6 +20,13 @@ public class Dish {
     private String dish_description;
     private HashMap<Ingredient, ArrayList<String>> ingredientQuantity;
     
+    public Dish(int dish_id, String dish_name, int vendor_id, String dish_description){
+        this.dish_id=dish_id;
+        this.dish_name=dish_name;
+        this.vendor_id=vendor_id;
+        this.dish_description=dish_description;
+        this.ingredientQuantity = new HashMap<Ingredient,ArrayList<String>>();
+    }
     public Dish(int dish_id, String dish_name, int vendor_id, String dish_description, HashMap<Ingredient, ArrayList<String>> ingredientQuantity){
         this.dish_id=dish_id;
         this.dish_name=dish_name;
