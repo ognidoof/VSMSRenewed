@@ -6,6 +6,7 @@
 package DAO;
 
 import Controller.ConnectionManager;
+import Controller.UtilityController;
 import Model.Dish;
 import Model.Ingredient;
 import java.sql.Connection;
@@ -73,12 +74,11 @@ public class IngredientDAO {
         return ingredient;
     }
     
-    public static int addIngredient(Ingredient ingredient){
+    public static void addIngredient(Ingredient ingredient){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
         String query = "";
-        int row=0;
         try
         {
             conn=ConnectionManager.getConnection();
@@ -90,7 +90,7 @@ public class IngredientDAO {
             statement.setString(4, ingredient.getSubcategory());
             statement.setString(5, ingredient.getDescription());
             statement.setString(6, ingredient.getOfferedPrice());
-            row = statement.executeUpdate();
+            rs = statement.executeQuery();
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -120,7 +120,6 @@ public class IngredientDAO {
                 }                
             }
         }
-                    return row;
 
     }
     
@@ -432,7 +431,7 @@ public class IngredientDAO {
             statement.setString(2,ingredient.getName());
             statement.setString(3,vendor_id);
             statement.setString(4,ingredient.getSupplier_id()+"");
-            statement.setString(5, quantity);
+            statement.setString(5, quantity);   
             statement.setString(6, unit);
             int rows = statement.executeUpdate();
            
@@ -778,5 +777,57 @@ public class IngredientDAO {
         }
         return dishList;
     }
-    
+
+    public static Dish getDishByID(int dish_id) {
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        String query = "";
+        Dish dish = null;
+        try
+        {
+            conn=ConnectionManager.getConnection();
+            query = "select * from Dish where dish_id=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, UtilityController.convertIntToString(dish_id));
+            rs = statement.executeQuery();
+            while(rs.next()){
+               int dishId=Integer.parseInt(rs.getString("dish_id"));
+               int venId=Integer.parseInt(rs.getString("vendor_id"));
+               dish =new Dish(dishId,rs.getString("dish_name"),venId, rs.getString("dish_description"), getIngredientQuantity(rs.getString("dish_id")));   
+            }
+            
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if(statement != null)
+            {
+                try
+                {
+                    statement.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null)
+            {
+                try
+                {
+                    conn.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }                
+            }
+        }
+        return dish;
+    }
 }
+    
+

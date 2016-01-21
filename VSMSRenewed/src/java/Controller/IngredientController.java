@@ -63,26 +63,48 @@ public class IngredientController extends HttpServlet {
     @Override
     //doGet will be given to RecipeBuilder.java
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int supplier_id = UtilityController.convertStringtoInt(request.getParameter("supplier_id")); 
-        String dish_id = request.getParameter("dish_id");
+        //To query Dish to be attached with an <Ingredient,IngredientQuantity> HashMap
+        String dish_idStr = request.getParameter("dish_id");
+        
+        //An ingredient needs:dish_name, supplier_id, subcategory, ingredient_description, offeredprice
         String name = request.getParameter("name");
-        String supplyUnit = request.getParameter("supplyUnit");
+        String supplier_idStr = request.getParameter("supplier_id");
         String subcategory = request.getParameter("subcategory");
         String description = request.getParameter("description");
         String offeredPrice = request.getParameter("offeredPrice");
+        
+        //The ingredientQuantity needs quantity, unit, vendorid
+        String quantityStr = request.getParameter("quantity");
+        String supplyUnit = request.getParameter("supplyUnit");
+        String vendor_idStr = request.getParameter("vendor_id");
+        
+        
         //Open out this code if you would like to test out request parameters
-        System.out.println("It reaches here: "+dish_id+","+name+","+supplyUnit+","+subcategory+","+description+","+offeredPrice);
+        System.out.println("It reaches here: "+dish_idStr+","+supplier_idStr+","+name+","+supplyUnit+","+subcategory+","+description+","+offeredPrice+","+quantityStr+","+supplyUnit+","+vendor_idStr);
         
         //Check null values to add the creation process
-        if(!UtilityController.checkNullStringArray(new String[]{name,supplyUnit,subcategory,description,offeredPrice})){
+        if(!UtilityController.checkNullStringArray(new String[]{dish_idStr,supplier_idStr,name,supplyUnit,subcategory,description,offeredPrice,quantityStr,supplyUnit,vendor_idStr})){
+            
+            int supplier_id = UtilityController.convertStringtoInt(supplier_idStr); 
+            int dish_id = UtilityController.convertStringtoInt(dish_idStr);
+            
+            //Creating a new ingredient and add ingredient quantity
+            Dish dish = getDishByID(dish_id); 
             Ingredient ingredient = new Ingredient(supplier_id,name,supplyUnit, subcategory,description,offeredPrice);
-        }
+            
+            // ----- STILL NEED TO CHANGE THIS -------//
+            addIngredient(ingredient);
+            addIngredientQuantity(ingredient, quantityStr, supplyUnit, dish_idStr, vendor_idStr);      
+            
+            response.sendRedirect("RecipeBuilder.jsp?dish_id="+dish_id);
+            
+          }
         
         
-//        Reading the ingredients of a dish
+        //        Reading the ingredients of a dish
         String ingredientListString = "";
         
-        HashMap<Ingredient,ArrayList<String>> ingredientList =  getIngredientQuantity(dish_id);
+        HashMap<Ingredient,ArrayList<String>> ingredientList =  getIngredientQuantity(dish_idStr);
         System.out.println("The ingredient list is ");
         if(ingredientList.isEmpty()){
             System.out.println("it is empty");
@@ -92,16 +114,19 @@ public class IngredientController extends HttpServlet {
         Iterator iter = ingredientList.keySet().iterator();
         while (iter.hasNext()){
             Ingredient ingredient = (Ingredient)iter.next();
-            ingredientListString += "<li>"+ingredient+"</li>";
-            
-            System.out.println("here inside the iteration , ingredient "+ingredient);
+            ArrayList<String> stringArray = ingredientList.get(ingredient);
+            ingredientListString += "<li>"+ingredient+" "+stringArray+"</li>";
         }
         
         response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        response.setCharacterEncoding("UTF-8"); 
         response.getWriter().write(ingredientListString);       // Write response body.
+        
     }
 
+    public static Dish getDishByID(int dish_id){
+        return IngredientDAO.getDishByID(dish_id);
+    }
     public static ArrayList<Ingredient> getIngredientBySupplier(int supplier_id) {
         return IngredientDAO.getIngredientBySupplier(supplier_id);
     }
@@ -110,8 +135,8 @@ public class IngredientController extends HttpServlet {
         return IngredientDAO.getIngredient(supplierId, ingredientName);
     }
 
-    public static int addIngredient(Ingredient ingredient) {
-        return IngredientDAO.addIngredient(ingredient);
+    public static void addIngredient(Ingredient ingredient) {
+        IngredientDAO.addIngredient(ingredient);
     }
 
     public static void deleteIngredient(Ingredient ingredient) {

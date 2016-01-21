@@ -1,8 +1,3 @@
-<%-- 
-    Document   : RecipeBuilder
-    Created on : Jan 18, 2016, 12:59:09 PM
-    Author     : Benjamin
---%>
 
 <%@page import="Controller.IngredientController"%>
 <%@page import="Model.Dish"%>
@@ -51,14 +46,17 @@
             </div>
             <div class="content">
                 <form id="addIngredient" action="ingredientservlet" method="get"> 
-                    Supplier ID: <input type="text" name="supplier_id" /> 
+                    <!--User inputs attributes-->
                     Ingredient Name : <input type="text" name="name"/>
-                    Unit (g,kg,etc): <input type="text" name="supplyUnit" />
                     Sub category: <input type="text" name="subcategory" />
+                    Quantity:<input type="text" name="quantity"/>
+                    Unit (g,kg,etc): <input type="text" name="supplyUnit" />
                     Description: <input type="text" name="description" />
                     Price offered: <input type="text" name="offeredPrice" />
                     
                     <!--Input hidden attributes-->
+                    <input type="hidden" name="supplier_id" value="1"/> 
+                    <input type="hidden" name="vendor_id" value="1">
                     <input type="hidden" name="dish_id" value="<%=request.getParameter("dish_id")%>">
                     
                     <input type="submit" value="Add" class="ui teal button" /> 
