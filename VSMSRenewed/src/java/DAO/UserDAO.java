@@ -281,7 +281,7 @@ public class UserDAO {
 
     }
 
-    public static Vendor loginVendor(String vendor_name, String password) {
+    public static Vendor loginVendor(String email, String password) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -290,17 +290,17 @@ public class UserDAO {
         try {
             //creates connections to database
             conn = ConnectionManager.getConnection();
-            sql = "Select * from vendor where vendor_name = ? and password = ?";
+            sql = "Select * from vendor where email = ? and password = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, vendor_name);
+            stmt.setString(1, email);
             stmt.setString(2, password);
             rs = stmt.executeQuery();
 
-            //Retrieves the supplier info from database and create a new supplier object to return
+            //Retrieves the vendor info from database and create a new vendor object to return
             while (rs.next()) {
                 int vendor_id = rs.getInt("vendor_id");
+                String vendor_name = rs.getString("vendor_name");
                 String vendor_description = rs.getString("vendor_description");
-                String email = rs.getString("email");
                 int area_code = rs.getInt("area_code");
                 int telephone_number = rs.getInt("telephone_number");
                 String address = rs.getString("address");
