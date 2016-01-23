@@ -12,6 +12,7 @@ import Model.Ingredient;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -90,7 +91,7 @@ public class IngredientDAO {
             statement.setString(4, ingredient.getSubcategory());
             statement.setString(5, ingredient.getDescription());
             statement.setString(6, ingredient.getOfferedPrice());
-            rs = statement.executeQuery();
+            statement.executeUpdate();
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -624,11 +625,14 @@ public class IngredientDAO {
         while (iter.hasNext()) {
             Ingredient tempI = iter.next();
             ArrayList<String> tempList = map.get(tempI);
-            updateIngredientQuantity(dish.getDish_id()+"", tempI.getName(), dish.getVendor_id()+"", tempI.getSupplier_id() + "",tempList.get(0),tempList.get(1));
+            int row = updateIngredientQuantity(dish.getDish_id()+"", tempI.getName(), dish.getVendor_id()+"", tempI.getSupplier_id() + "",tempList.get(0),tempList.get(1));
+            if (row == 0){
+                addIngredientQuantity(tempI,tempList.get(0), tempList.get(1), dish.getDish_id()+"", dish.getVendor_id()+"");
+            }
         }
     }
     
-    public static void updateIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id, String quantity, String unit){
+    public static int updateIngredientQuantity(String dish_id, String ingredient_name, String vendor_id, String supplier_id, String quantity, String unit){
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -645,6 +649,7 @@ public class IngredientDAO {
             statement.setString(5, vendor_id);
             statement.setString(6, supplier_id);
             int row = statement.executeUpdate();
+            return row;
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -674,7 +679,7 @@ public class IngredientDAO {
                 }                
             }
         }
-        
+        return 0;
     }
     
     public static ArrayList<Integer> getSupplierIdByIngredient(String ingredient_name){
