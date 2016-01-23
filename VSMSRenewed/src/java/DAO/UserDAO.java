@@ -565,4 +565,18 @@ public class UserDAO {
         }
     }
 
+    
+    //TIM TEMP
+    private HashMap suppliers = new HashMap();
+
+    public HashMap getSuppliers() {
+        return suppliers;
+    }
+
+    public UserDAO() {
+        //int supplier_id, String password, String supplier_name, String supplier_description, String supplier_type, String email, int area_code, int telephone_number, String address
+        //Supplier s = new Supplier(1, "abc123", "FreshFoodz", "something here", "western", "lala@gmail.com", 65, 646464, "asd");
+        suppliers.put("1", new Supplier(1, "abc123", "FreshFoodz", "something here", "western", "lala@gmail.com", 65, 646464, "asd"));
+        suppliers.put("2", new Supplier(2, "abc123", "Animal Farm", "something here", "western", "lala@gmail.com", 65, 646464, "asd"));
+    }
 }
