@@ -12,17 +12,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="javascript.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        <title>Auto-Completion using AJAX</title>
+        <title>Supplier Search</title>
     </head>
     <body onload="init()">
 
-        <h1>Auto-Completion using AJAX</h1>
-        <p>This example shows how you can do real time auto-completion using Asynchronous
-            JavaScript and XML (Ajax) interactions.</p>
+        <h1>Supplier Search</h1>
+        <p>Enter the name or category of suppliers to search for</p>
 
-        <p>In the form below enter a name. Possible names that will be completed are displayed
-            below the form. For example, try typing in "Bach," "Mozart," or "Stravinsky,"
-            then click on one of the selections to see composer details.</p>
         <form name="autofillform" action="autocomplete"><table border="0" cellpadding="5">
                 
                 <tbody>
