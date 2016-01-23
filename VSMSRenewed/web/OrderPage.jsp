@@ -4,6 +4,7 @@
     Author     : Joel
 --%>
 
+<%@page import="Controller.UserController"%>
 <%@page import="java.util.Date"%>
 <%@page import="Controller.OrderController"%>
 <%@page import="Controller.IngredientController"%>
@@ -29,46 +30,16 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <%
-            int vendorID = Integer.parseInt(((String)session.getAttribute("vendorID")));
-            Vendor currentVendor = UserDAO.getVendorByID(vendorID);
-            
-            //display list of all orders
-            ArrayList<Order> orderList = OrderDAO.retrieveOrderList(vendorID);
-            for (Order o: orderList){
-                int orderID = o.getOrder_id();
-                double totalPrice = o.getTotal_final_price();
-                ArrayList<Orderline> orderlines = o.getOrderlines();
-                %>
-                <a>Order ID: <%=orderID%></a>
-                <a>Total Order Price: <%=totalPrice%></a>
-                <%
-                for(Orderline ol : orderlines){
-                    int supplier_id = ol.getSupplier_id();
-                    Supplier supMan = UserDAO.getSupplierById(supplier_id);
-                    String supName = supMan.getSupplier_name();
-                    
-                    String ing_name = ol.getIngredient_name();
-                    int quantity = ol.getQuantity();
-                    double price = ol.getFinalprice();
-                    
-                    %>
-                        <a>Supplier: <%=supName%></a>
-                        <a>Ingredient: <%=ing_name%></a>
-                        <a>Quantity: <%=quantity%></a>
-                    <%
-                }
-            }
-        %>
+        
         
         <%
             //create new orders//
-            
+            int vendorID = 1;
             ArrayList<Dish> dishlist = IngredientController.getDish("" + vendorID);
             
             //with dish and quantity to order selected by vendor, create an order
             HashMap<Dish, Integer> actualOrders = new HashMap<Dish, Integer>();//change this to actual form input
-            
+  
             //list of orderIDs
             ArrayList<Integer> order_id_list = new ArrayList<Integer>();
             
