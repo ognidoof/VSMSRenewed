@@ -91,12 +91,20 @@ public class IngredientController extends HttpServlet {
             //Creating a new ingredient and add ingredient quantity
             Dish dish = getDishByID(dish_id); 
             Ingredient ingredient = new Ingredient(supplier_id,name,supplyUnit, subcategory,description,offeredPrice);
-            
-            // ----- STILL NEED TO CHANGE THIS -------//
+            System.out.println(ingredient);
+            // ----- This is to populate parent table (Ingredient) -------//
             addIngredient(ingredient);
-            addIngredientQuantity(ingredient, quantityStr, supplyUnit, dish_idStr, vendor_idStr);      
             
-            response.sendRedirect("RecipeBuilder.jsp?dish_id="+dish_id);
+            // ---- Creating ingredientQuantity based on user inputs ----- // 
+//            ArrayList<String> ingredientQuantity = new ArrayList<String>();
+//            ingredientQuantity.add(quantityStr);
+//            ingredientQuantity.add(ingredient.getSupplyUnit());
+            
+            // ----  adding the ingredientQuantity and put new dish ---- // 
+//            dish.getIngredientQuantity().put(ingredient, ingredientQuantity);
+            
+            
+//            response.sendRedirect("RecipeBuilder.jsp?dish_id="+dish_id);
             
           }
         
