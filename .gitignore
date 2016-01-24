@@ -1,5 +1,8 @@
-/VSMSRenewed/nbproject/private/
+VSMSRenewed/nbproject/private/private.xml
+/VSMSRenewed/nbproject/private/*
+/VSMSRenewed/nbproject/*
 /VSMSRenewed/build/
 /VSMSRenewed/dist/
+
 
 /result.csv

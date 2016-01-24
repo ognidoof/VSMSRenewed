@@ -30,6 +30,9 @@ public class Order {
         this.orderlines = orderlines;
 
     }
+    public void addOrderlines (Orderline orderline){
+        this.orderlines.add(orderline);
+    }
 
     public int getOrder_id() {
         return order_id;

@@ -5,6 +5,7 @@
  */
 package javamail;
 
+import DAO.OrderDAO;
 import DAO.UserDAO;
 import Model.Order;
 import Model.Orderline;
@@ -29,14 +30,32 @@ import javax.mail.internet.MimeMessage;
  */
 public class EmailController {
 
-    private static String host;
-    private static String user;
-    private static String password;
+    private static String host = "smtp.gmail.com";
+    private static String user = "ognidoof";
+    private static String password = "AbC12321CbA";
+
 
     public EmailController(String host, String user, String password) {
         this.host = host;
         this.user = user;
         this.password = password;
+    }
+    
+    public static void sendMessageToVendorSupplier(Order order, Vendor vendor) {
+
+        String subject = "Receiving order from <supplier>; Order ID : ...";
+
+        if (!user.equals("") && !password.equals("")) {
+            EmailController emailController = new EmailController("smtp.gmail.com", "ognidoof", "AbC12321CbA");
+        } else {
+            System.out.println("User email and password are empty. Please correct the problem");
+        }
+
+        //Getting hashmap of supplier and text message to send to each supplier / vendor
+        HashMap<Integer, String> suppOrderMap = EmailController.supplierMessageList(order);
+
+        EmailController.sendMessageToSuppliers(vendor.getVendor_name(), suppOrderMap);
+        EmailController.sendMessageToVendor(vendor, suppOrderMap);
     }
 
     public static void sendMessage(String toEmail, String subject, String messageString) {
