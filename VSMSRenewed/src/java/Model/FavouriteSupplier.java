@@ -29,4 +29,5 @@ public class FavouriteSupplier {
         return "Vendor ID: " + vendor_id +", supplier_id: "+supplier_id;
     }
     
+    
 }

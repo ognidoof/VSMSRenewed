@@ -88,7 +88,15 @@ public class Dish {
         }
         return description;
     }
-    
+    @Override
+    public int hashCode() {
+        return dish_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return ((Dish) o).dish_id == this.dish_id;
+    }
 
     
 }

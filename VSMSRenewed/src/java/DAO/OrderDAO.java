@@ -203,7 +203,7 @@ public class OrderDAO {
                 sql = sql.replace("#1", "" + orderline.getVendor_id());
                 sql = sql.replace("#2", "" + orderline.getOrder_id());
                 sql = sql.replace("#3", "" + orderline.getSupplier_id());
-                sql = sql.replace("#4", orderline.getIngredient_name());
+                sql = sql.replace("#4", "" + "'"+orderline.getIngredient_name()+"'");
                 sql = sql.replace("#5", "" + orderline.getFinalprice());
                 sql = sql.replace("#6", "" + orderline.getQuantity());
                 sql = sql.replace("#7", "" + orderline.getBufferpercentage());

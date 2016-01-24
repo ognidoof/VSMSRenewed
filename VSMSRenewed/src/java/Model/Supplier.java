@@ -1,9 +1,9 @@
-
 package Model;
 
 import java.util.ArrayList;
 
 public class Supplier {
+
     private int supplier_id;
     private String password;
     private String supplier_name;
@@ -58,7 +58,6 @@ public class Supplier {
         this.address = address;
     }
 
-
     public int getSupplier_id() {
         return supplier_id;
     }
@@ -98,8 +97,19 @@ public class Supplier {
     public void setSupplier_type(String supplier_type) {
         this.supplier_type = supplier_type;
     }
+
     public String toString() {
-        return "Supplier ID: " + supplier_id + ", name: " + supplier_name + ", password: " + password + ", type: " + supplier_type + " description " + supplier_description+", email: "+email+" telephone_number "+area_code+telephone_number +" address "+address;
+        return "Supplier ID: " + supplier_id + ", name: " + supplier_name + ", password: " + password + ", type: " + supplier_type + " description " + supplier_description + ", email: " + email + " telephone_number " + area_code + telephone_number + " address " + address;
+    }
+
+    @Override
+    public int hashCode() {
+        return supplier_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return ((Supplier) o).supplier_id == this.supplier_id;
     }
 
 }

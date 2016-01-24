@@ -49,7 +49,7 @@ public class OrderController extends HttpServlet {
             HashMap<Integer, Integer> dishQuantityMap = createDishQuantityMap(dishList, request);
             int vendor_id = UtilityController.convertStringtoInt(vendor_idStr);
 
-            //Create an hashmap with <Ingredient, aggregated quantity>
+            //Create an hashmap with <Ingredient, aggregated quantity> (TESTED)
             HashMap<Ingredient, Integer> ingredientAggQuantityMap = createIngredientAggQuantityMap(dishQuantityMap);
             //Make an arraylist of all orderline (non aggregated)
             ArrayList<Orderline> orderlineList = createOrderlineList(ingredientAggQuantityMap, vendor_id, getLatestOrderID() + 1);
@@ -71,7 +71,7 @@ public class OrderController extends HttpServlet {
                 EmailController.sendMessageToVendorSupplier(order, UserDAO.getVendorByID(vendor_id));
 
             }
-            response.sendRedirect("Menu.jsp");
+            response.sendRedirect("Order.jsp");
         }
 
         String dishListString = "";
@@ -80,7 +80,7 @@ public class OrderController extends HttpServlet {
             //Create a component inside the table one <tr> at a time
             dishListString += "<tr>";
             dishListString += "<td>" + dish + "</td>";
-            dishListString += "<td><input type=\"text\" name=\"dish" + dish.getDish_id() + "\"/></td>";
+            dishListString += "<td><input type=\"text\" value=1 name=\"dish" + dish.getDish_id() + "\"/></td>";
             dishListString += "</tr>";
         }
 
@@ -199,8 +199,10 @@ public class OrderController extends HttpServlet {
             Supplier supplier = (Supplier) iter.next();
             ArrayList<Orderline> orderlineList = supplierOrderlineMap.get(supplier);
             //  order has int order_id, int vendor_id, double total_final_price, Date dt_order, ArrayList<Orderline> orderlines) {
-            Order order = new Order(order_id, vendor_id, createAggFinalPrice(orderlineList), new Date(), orderlineList);
+            Order order = new Order(order_id, vendor_id, createAggFinalPrice(orderlineList),new Date(), orderlineList);
             supplierOrderMap.put(supplier, order);
+            //to compensate for subsequent orders, so that there would be no duplication
+            order_id+=1;
         }
         //for debugging purpose
         System.out.println(supplierOrderMap.toString());

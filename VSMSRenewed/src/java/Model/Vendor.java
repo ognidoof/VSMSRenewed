@@ -91,5 +91,14 @@ public class Vendor {
     public String toString() {
         return "Vendor ID: " + vendor_id + ", name: " + vendor_name + ", password: " + password + " description " + vendor_description +", email: "+email+" telephone_number "+area_code+telephone_number +" address "+address;
     }
+    @Override
+    public int hashCode() {
+        return vendor_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return ((Vendor) o).vendor_id == this.vendor_id;
+    }
 
 }

@@ -40,7 +40,7 @@
             <table id="orderListTable"></table>
 
             <!--Input hidden attributes-->
-            <input type="hidden" name="vendor_id"/>
+            <input type="hidden" name="vendor_id" value="1"/>
 
             <input type="submit" value="Add" class="ui teal button" />
         </form>

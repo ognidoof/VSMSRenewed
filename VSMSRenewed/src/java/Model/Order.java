@@ -77,4 +77,13 @@ public class Order {
     public String toString() {
         return "Order_id: " + order_id + "Vendor_id: " + vendor_id + "Total final price: " + total_final_price+" the OrderTime is "+dt_order.toString();
     }
+    @Override
+    public int hashCode() {
+        return order_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return ((Order) o).order_id == this.order_id;
+    }
 }
